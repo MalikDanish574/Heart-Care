@@ -1,0 +1,11 @@
+import 'package:flutter/material.dart';
+ Color bgcolor=Color(0xffEB1315);
+ Color textWhite=Color(0xffFFFFFF);
+ Color iconWhite=Color(0xffFFFFFF);
+//  Color bgcolor=Color(0xffEB1315);
+ Color textfieldborder=Color(0xffEB1315);
+ Color textfieldlabel=Color(0xffEB1315);
+ Color textblack=Color(0xff000000);
+ Color textred=Color(0xffEB1315);
+ Color btnbg=Color(0xffEB1315);
+ Color iconred=Color(0xffEB1315);
