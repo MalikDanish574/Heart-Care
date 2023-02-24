@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:patient_health_monitoring_app/screens/ForgetPassword/verification.dart';
+import 'package:patient_health_monitoring_app/screens/loginScreens/patientlogin.dart';
 import 'package:patient_health_monitoring_app/utils/utilities.dart';
 import 'package:patient_health_monitoring_app/widgets/Appbar.dart';
 import 'package:patient_health_monitoring_app/widgets/button.dart';
@@ -83,7 +83,9 @@ class ForgetPassword extends StatelessWidget {
                         }).onError((error, stackTrace) {
                           Utils().toastMessage(error.toString());
                         });
+
                       }
+                      Get.to(()=>PatientLogin());
                     },)
                       ],
                     ),

@@ -125,7 +125,41 @@ class _SignupState extends State<Signup> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 23.w, top: 20.h),
-                  child: Password(title: "Confirm Password",controller: confirmController),
+                  child: Container(
+      height: 59.h,
+      width: 381.w,
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        controller: confirmController,
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: textfieldborder)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: textfieldborder)),
+          labelText: 'Confirm Password',
+          labelStyle: TextStyle(
+            fontSize: 11,
+            color: textfieldlabel,
+          ),
+        ),
+        obscureText: true,
+        obscuringCharacter: "*",
+        style:
+            TextStyle(color: textblack, fontFamily: 'Montserrat', fontSize: 14),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Enter Password";
+          }
+          if (value!=passwordController.text)
+          {
+            return 'Password Not Match';
+          }
+          return null;
+        },
+      ),
+    )
                 ),
                
                
