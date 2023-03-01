@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:patient_health_monitoring_app/screens/available_doctor.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/Slider.dart';
+import 'package:patient_health_monitoring_app/widgets/drawer.dart';
 import 'package:patient_health_monitoring_app/widgets/searchBAr.dart';
 
 import '../details.dart';
@@ -14,16 +15,20 @@ class PatientDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: bgwhite,
+      iconTheme: IconThemeData(color: iconred),
+      ),
+      drawer: CustomDrawer(),
       backgroundColor: bgwhite,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.w),
           child: Column(children: [
-            SizedBox(
-              height: 51.h,
-            ),
+            
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "Hi Malik,",
@@ -32,13 +37,7 @@ class PatientDashboard extends StatelessWidget {
                       fontSize: 32,
                       fontWeight: FontWeight.w400),
                 ),
-                CircleAvatar(
-                  backgroundColor: iconbg,
-                  child: Icon(
-                    Icons.menu_rounded,
-                    color: iconred,
-                  ),
-                )
+
               ],
             ),
             SizedBox(
@@ -94,7 +93,10 @@ class PatientDashboard extends StatelessWidget {
               decoration: BoxDecoration(
                 color:containerbg,
                 borderRadius: BorderRadius.circular(8)),
-                child: ImageSlider(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ImageSlider(),
+                ),
             ),
             SizedBox(
               height: 20.h,

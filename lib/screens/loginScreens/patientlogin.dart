@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:patient_health_monitoring_app/screens/Dashbords/patientdashboard.dart';
-import 'package:patient_health_monitoring_app/screens/Signup.dart';
+import 'package:patient_health_monitoring_app/screens/Signups/patientSignup.dart';
+
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/utils/images.dart';
 import 'package:patient_health_monitoring_app/utils/utilities.dart';
@@ -131,7 +132,7 @@ class PatientLogin extends StatelessWidget {
                     SizedBox(width: 3.w,),
                     InkWell(
                       onTap: () {
-                        Get.to(()=>Signup());
+                        Get.to(()=>PatientSignup());
                       },
                       child: Text(
                         "Signup",

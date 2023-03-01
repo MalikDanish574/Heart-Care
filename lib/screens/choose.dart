@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:patient_health_monitoring_app/screens/Dashbords/patientdashboard.dart';
 import 'package:patient_health_monitoring_app/screens/loginScreens/adminlogin.dart';
 import 'package:patient_health_monitoring_app/screens/loginScreens/doctorlogin.dart';
 import 'package:patient_health_monitoring_app/screens/loginScreens/patientlogin.dart';
@@ -8,6 +10,8 @@ import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/button.dart';
 
 import '../utils/images.dart';
+import 'Dashbords/admindashboard.dart';
+import 'Dashbords/doctordashboard.dart';
 
 class Choose extends StatelessWidget {
   @override
@@ -54,19 +58,31 @@ class Choose extends StatelessWidget {
                        Align(
                         alignment: Alignment.center,
                         child: button(title: 'Doctor',ontap: (){
-                          Get.to(()=>DoctorLogin());
+                           if (FirebaseAuth.instance.currentUser!=null){
+                                Get.to(()=>DoctorDashboard());
+                              }else{
+                                Get.to(()=>DoctorLogin());
+                              }
                         },)),
                         SizedBox(height: 30.h,),
                       Align(
                         alignment: Alignment.center,
                         child: button(title: 'Patient',ontap: (){
-                          Get.to(()=>PatientLogin());
+                          if (FirebaseAuth.instance.currentUser!=null){
+                                Get.to(()=>PatientDashboard());
+                              }else{
+                                Get.to(()=>PatientLogin());
+                              }
                         },)),
                         SizedBox(height: 30.h,),
                        Align(
                         alignment: Alignment.center,
                         child: button(title: 'Admin',ontap: (){
-                          Get.to(()=>AdminLogin());
+                          if (FirebaseAuth.instance.currentUser!=null){
+                                Get.to(()=>AdminDashboard());
+                              }else{
+                                Get.to(()=>AdminLogin());
+                              }
                         },))
                     ],
                   ),
