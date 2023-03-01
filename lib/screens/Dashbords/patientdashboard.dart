@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:patient_health_monitoring_app/screens/available_doctor.dart';
@@ -11,6 +12,10 @@ import '../details.dart';
 
 
 class PatientDashboard extends StatelessWidget {
+   final DateTime now = DateTime.now();
+  final String currdate =  DateFormat('yMMMMd').format(DateTime.now());
+  final String currday=DateFormat('EEEE').format(DateTime.now());
+
   final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class PatientDashboard extends StatelessWidget {
               height: 20.h,
             ),
             Text(
-              "January 06, 2023\nFriday ",
+              currdate+"\n"+currday,
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: textgrey, fontSize: 18, fontWeight: FontWeight.w400),
