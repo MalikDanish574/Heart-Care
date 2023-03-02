@@ -1,11 +1,12 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:patient_health_monitoring_app/screens/Dashbords/doctordashboard.dart';
-import 'package:patient_health_monitoring_app/screens/Signups/doctorSignup.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/patientdashboard.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/patientSignup.dart';
+
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/utils/images.dart';
 import 'package:patient_health_monitoring_app/utils/utilities.dart';
@@ -16,7 +17,7 @@ import 'package:patient_health_monitoring_app/widgets/password.dart';
 import '../../widgets/Appbar.dart';
 import '../ForgetPassword/forgetPasword.dart';
 
-class DoctorLogin extends StatelessWidget {
+class PatientLogin extends StatelessWidget {
   final _formkey= GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -49,7 +50,7 @@ class DoctorLogin extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 35.w, top: 65.h),
                   child: Text(
-                    "Doctor Login",
+                    "Patient Login",
                     style: TextStyle(
                         color: textWhite,
                         fontSize: 35,
@@ -110,7 +111,7 @@ class DoctorLogin extends StatelessWidget {
                         _auth.signInWithEmailAndPassword(
                           email: emailController.text, 
                           password: passwordController.text).then((value) {
-                            Get.to(()=>DoctorDashboard());
+                            Get.to(()=>PatientDashboard());
                           }).onError((error, stackTrace){
                             Utils().toastMessage(error.toString());
                           });
@@ -131,7 +132,7 @@ class DoctorLogin extends StatelessWidget {
                     SizedBox(width: 3.w,),
                     InkWell(
                       onTap: () {
-                         Get.to(()=>DoctorSignup());
+                        Get.to(()=>PatientSignup());
                       },
                       child: Text(
                         "Signup",

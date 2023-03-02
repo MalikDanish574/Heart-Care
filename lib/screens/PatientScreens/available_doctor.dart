@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:patient_health_monitoring_app/screens/book_appointment.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/book_appointment.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/custom_app_bar.dart';
 import 'package:patient_health_monitoring_app/widgets/ractanaglebutton.dart';

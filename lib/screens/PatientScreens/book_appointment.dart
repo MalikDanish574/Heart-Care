@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:horizontal_calendar/horizontal_calendar.dart';
-import 'package:patient_health_monitoring_app/screens/doneAppointment.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/doneAppointment.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/custom_app_bar.dart';
 

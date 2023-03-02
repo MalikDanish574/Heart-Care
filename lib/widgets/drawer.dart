@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
-import 'package:patient_health_monitoring_app/screens/Dashbords/patientdashboard.dart';
+import 'package:patient_health_monitoring_app/screens/ContactUs.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/patientdashboard.dart';
 import 'package:patient_health_monitoring_app/screens/choose.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 
@@ -42,6 +43,10 @@ class CustomDrawer extends StatelessWidget{
                   _buildDivider(),
                   _buildRow(Icons.person_pin, "Your profile",() {
                     
+                  }),
+                  _buildDivider(),
+                  _buildRow(Icons.message, "Contact Us",() {
+                    Get.to(()=>ContactUs());
                   }),
                   _buildDivider(),
                   _buildRow(Icons.logout, "Sign Out",() async {

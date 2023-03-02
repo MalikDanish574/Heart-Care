@@ -2,16 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:patient_health_monitoring_app/screens/Dashbords/patientdashboard.dart';
-import 'package:patient_health_monitoring_app/screens/loginScreens/adminlogin.dart';
-import 'package:patient_health_monitoring_app/screens/loginScreens/doctorlogin.dart';
-import 'package:patient_health_monitoring_app/screens/loginScreens/patientlogin.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/patientdashboard.dart';
+import 'package:patient_health_monitoring_app/screens/AdminScreens/adminlogin.dart';
+import 'package:patient_health_monitoring_app/screens/DoctorScreens/doctorlogin.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/patientlogin.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/button.dart';
 
 import '../utils/images.dart';
-import 'Dashbords/admindashboard.dart';
-import 'Dashbords/doctordashboard.dart';
+import 'AdminScreens/admindashboard.dart';
+import 'DoctorScreens/doctordashboard.dart';
 
 class Choose extends StatelessWidget {
   @override

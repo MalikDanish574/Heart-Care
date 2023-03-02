@@ -45,6 +45,7 @@ dependencies:
   fluttertoast: ^8.1.2
   carousel_slider: ^4.2.1
   horizontal_calendar: ^1.0.2
+  intl_phone_field: ^3.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

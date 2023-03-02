@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:patient_health_monitoring_app/screens/choose.dart';
-import 'package:patient_health_monitoring_app/screens/loginScreens/doctorlogin.dart';
+import 'package:patient_health_monitoring_app/screens/DoctorScreens/doctorlogin.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/utils/images.dart';
 

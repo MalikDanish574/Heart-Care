@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:patient_health_monitoring_app/screens/loginScreens/doctorlogin.dart';
-import 'package:patient_health_monitoring_app/screens/loginScreens/patientlogin.dart';
+import 'package:patient_health_monitoring_app/screens/DoctorScreens/doctorlogin.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/patientlogin.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/utils/images.dart';
 import 'package:patient_health_monitoring_app/utils/utilities.dart';
@@ -257,7 +257,7 @@ class _SignupState extends State<DoctorSignup> {
                               //DateFormat() is from intl package, you can format the time on any pattern you need.
 
                               setState(() {
-                                startTimeController.text =
+                                endTimeController.text =
                                     formattedTime; //set the value of text field.
                               });
                             } else {

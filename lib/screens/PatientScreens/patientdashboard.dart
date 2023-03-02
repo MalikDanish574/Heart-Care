@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:patient_health_monitoring_app/screens/available_doctor.dart';
+import 'package:patient_health_monitoring_app/screens/PatientScreens/available_doctor.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/Slider.dart';
 import 'package:patient_health_monitoring_app/widgets/drawer.dart';
 import 'package:patient_health_monitoring_app/widgets/searchBAr.dart';
 
-import '../details.dart';
+import 'details.dart';
 
 
 class PatientDashboard extends StatelessWidget {
