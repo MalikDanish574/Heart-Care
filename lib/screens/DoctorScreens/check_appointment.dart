@@ -154,15 +154,7 @@ class CheckAppointment extends StatelessWidget{
                                         fontFamily: 'poppins'),
                                   ),
                                 ],
-                              ),
-                              
-
-                                  
-                                
-                            
-                              
-                                      
-                                        
+                              ),            
                             ],
                           ),
                         ),
