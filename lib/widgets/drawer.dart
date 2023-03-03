@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
 import 'package:patient_health_monitoring_app/screens/ContactUs.dart';
 import 'package:patient_health_monitoring_app/screens/PatientScreens/patientdashboard.dart';
 import 'package:patient_health_monitoring_app/screens/choose.dart';
