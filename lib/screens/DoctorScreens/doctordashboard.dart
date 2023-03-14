@@ -55,37 +55,33 @@ class DoctorDashboard extends StatelessWidget {
               },
               child: Container(
                 height: 200.h,
-                width: 160.w,
+                width: 378.w,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8), color: textred),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.w, top: 10.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
+                    borderRadius: BorderRadius.circular(20.r), ),
+                child: Stack(
+                  children: [
+                     Image.asset(
+                       "assets/images/doctorbg.png",
+                       height: 150.h,
+                       width: 378.w,
+                       fit: BoxFit.fill,
+                     ),
+                    Padding(
+                      padding:  EdgeInsets.only(top: 20.h,left: 20.w),
+                      child: Text(
                         "Check\nAppointment",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             color: textWhite,
-                            fontSize: 15,
+                            fontSize: 25.w,
                             fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
-                        height: 22.h,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                            height: 130.h,
-                            width: 100.w,
-                            child: Image.asset(
-                              "assets/images/doctor.png",
-                              fit: BoxFit.fill,
-                            )),
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 22.h,
+                    ),
+                   
+                  ],
                 ),
               ),
             ),

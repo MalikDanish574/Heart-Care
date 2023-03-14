@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
  Color textWhite=Color(0xffFFFFFF);
  Color iconWhite=Color(0xffFFFFFF);
   Color containerbg=Color(0xffFFFFFF);
+   Color containerbggreen=Colors.green;
 //  Color bgcolor=Color(0xffEB1315);
  Color textfieldborder=Color(0xffEB1315);
  Color btnborder=Color(0xffFFFFFF);

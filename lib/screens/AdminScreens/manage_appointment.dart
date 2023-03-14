@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../utils/colors.dart';
-import '../../widgets/custom_app_bar.dart';
 
-class CheckAppointment extends StatelessWidget {
+class ManageAppointment extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25.w),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 41.h,
+   return Scaffold(
+    body: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 25.w),
+      child: Column(
+        children: [
+          SizedBox(
+              height: 50.h,
             ),
-            CustomAppBar(title: "Appointments", color: textred),
+            Row(
+              children: [
+                InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(Icons.arrow_back_ios)),
+              ],
+            ),
             SizedBox(
-              height: 41.h,
+              height: 20.h,
+            ),
+            Center(
+              child: Text(
+                "Manage Appointments",
+                style: TextStyle(
+                    color: textblack,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
             Expanded(
               child: ListView.builder(
@@ -30,11 +47,13 @@ class CheckAppointment extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                       child: Container(
-                        height: 200.h,
+                        height: 270.h,
                         width: 377.w,
                         decoration: BoxDecoration(
-                            color: bgcolor,
-                            borderRadius: BorderRadius.circular(12)),
+                            color: containerbg,
+                            borderRadius: BorderRadius.circular(15.r),
+                             border: Border.all(width: 1,color: textfieldborder),),
+                            
                         child: Padding(
                           padding: const EdgeInsets.all(14),
                           child: Column(
@@ -44,7 +63,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Name:",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'poppins'),
@@ -55,7 +74,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Malik Danish Awan",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'poppins'),
@@ -70,7 +89,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Age:",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'poppins'),
@@ -81,7 +100,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "23 years",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'poppins'),
@@ -96,7 +115,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Gender:",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'poppins'),
@@ -107,7 +126,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Male/Female",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'poppins'),
@@ -122,7 +141,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Time:",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'poppins'),
@@ -133,7 +152,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "01:00",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'poppins'),
@@ -148,7 +167,7 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "Date:",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'poppins'),
@@ -159,10 +178,58 @@ class CheckAppointment extends StatelessWidget {
                                   Text(
                                     "02-03-2023",
                                     style: TextStyle(
-                                        color: textWhite,
+                                        color: textred,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: 'poppins'),
+                                  ),
+                                ],
+                              ),
+                               SizedBox(
+                                height: 15.h,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 50.h,
+                                    width: 150.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.r),
+                                      border: Border.all(width: 1,color: textWhite),
+                                      color: containerbggreen
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Accept",
+                                        style: TextStyle(
+                                            color: textWhite,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'poppins'),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 15.w,
+                                  ),
+                                  Container(
+                                     height: 50.h,
+                                    width: 150.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.r),
+                                      border: Border.all(width: 1,color: textWhite),
+                                      color: bgcolor
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Reject",
+                                        style: TextStyle(
+                                            color: textWhite,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'poppins'),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -175,9 +242,10 @@ class CheckAppointment extends StatelessWidget {
                 },
               ),
             )
-          ],
-        ),
+        ],
       ),
-    );
+    ),
+   );
   }
+
 }

@@ -144,12 +144,18 @@ class PatientDashboard extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 color: textred),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10.w, top: 10.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
+                            child: Stack(
+                              children: [
+                                 Container(
+                                      height: 200.h,
+                                      width: 160.w,
+                                      child: Image.asset(
+                                        "assets/images/doctorbg.png",
+                                        fit: BoxFit.fill,
+                                      )),
+                                Padding(
+                                  padding:  EdgeInsets.only(top: 10.h,left: 10.w),
+                                  child: Text(
                                     "Doctor\nAppointment",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
@@ -157,21 +163,12 @@ class PatientDashboard extends StatelessWidget {
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                  SizedBox(
-                                    height: 22.h,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Container(
-                                        height: 130.h,
-                                        width: 100.w,
-                                        child: Image.asset(
-                                          "assets/images/doctor.png",
-                                          fit: BoxFit.fill,
-                                        )),
-                                  )
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  height: 22.h,
+                                ),
+                               
+                              ],
                             ),
                           ),
                         ),

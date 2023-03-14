@@ -44,7 +44,7 @@ class Details extends StatelessWidget {
               child: DataTable(
                 headingRowColor: MaterialStateProperty.resolveWith<Color?>(
                     (Set<MaterialState> states) {
-
+          
                   return textred; // Use the default value.
                 }),
                 columns: [
@@ -74,6 +74,7 @@ class Details extends StatelessWidget {
                               color: textWhite))),
                 ],
                 rows: [
+                  
                   DataRow(cells: [
                     DataCell(Text('34')),
                     DataCell(Text('67')),
