@@ -69,7 +69,7 @@ class Choose extends StatelessWidget {
                         alignment: Alignment.center,
                         child: button(title: 'Patient',ontap: (){
                           if (FirebaseAuth.instance.currentUser!=null){
-                                Get.to(()=>PatientDashboard());
+                                Get.to(()=>PatientDashboard(email: FirebaseAuth.instance.currentUser!.email.toString(),));
                               }else{
                                 Get.to(()=>PatientLogin());
                               }

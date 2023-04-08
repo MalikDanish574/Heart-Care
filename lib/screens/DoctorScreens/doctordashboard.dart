@@ -61,7 +61,7 @@ class DoctorDashboard extends StatelessWidget {
                 child: Stack(
                   children: [
                      Image.asset(
-                       "assets/images/doctorbg.png",
+                       "assets/images/appointmentbg.png",
                        height: 150.h,
                        width: 378.w,
                        fit: BoxFit.fill,

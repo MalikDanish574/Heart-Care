@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +13,16 @@ import 'details.dart';
 
 
 class PatientDashboard extends StatelessWidget {
+  
+  String? email;
+  PatientDashboard({
+    this.email
+  });
    final DateTime now = DateTime.now();
   final String currdate =  DateFormat('yMMMMd').format(DateTime.now());
   final String currday=DateFormat('EEEE').format(DateTime.now());
-
+   final fireStore =
+      FirebaseFirestore.instance.collection('Patient').snapshots();
   final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -35,14 +42,22 @@ class PatientDashboard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                StreamBuilder<QuerySnapshot>(builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                  for(int i=0;i<snapshot.data!.docs.length;i++){
+                    if(email==snapshot.data!.docs[i]["email"]) {
+                      QueryDocumentSnapshot details=snapshot.data!.docs[i];
+                      
+                    }
+                  }
+                  return Text(
                   "Hi Malik,",
                   style: TextStyle(
                       color: textblack,
                       fontSize: 32,
                       fontWeight: FontWeight.w400),
-                ),
-
+                );
+                },),
+               
               ],
             ),
             SizedBox(

@@ -1,5 +1,4 @@
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,15 +17,19 @@ import '../../widgets/Appbar.dart';
 import '../ForgetPassword/forgetPasword.dart';
 
 class PatientLogin extends StatelessWidget {
-  final _formkey= GlobalKey<FormState>();
+  bool exist = false;
+  String email = "";
+  final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  final _auth= FirebaseAuth.instance;
-  void dispose(){
+  final fireStore =
+      FirebaseFirestore.instance.collection('Patient').snapshots();
+  final _auth = FirebaseAuth.instance;
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,11 +77,15 @@ class PatientLogin extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 23.w),
-                  child: Emailfeild(title: "EMAIL ADDRESS",controller: emailController,),
+                  child: Emailfeild(
+                    title: "EMAIL ADDRESS",
+                    controller: emailController,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 23.w, top: 20.h),
-                  child: Password(title: "Password",controller: passwordController),
+                  child: Password(
+                      title: "Password", controller: passwordController),
                 ),
                 SizedBox(
                   height: 14.h,
@@ -89,7 +96,7 @@ class PatientLogin extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: (() {
-                        Get.to(()=>ForgetPassword());
+                        Get.to(() => ForgetPassword());
                       }),
                       child: Text(
                         "Forget Password?",
@@ -102,24 +109,48 @@ class PatientLogin extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 64.h,),
-                Align(
-                  alignment: Alignment.center,
-                    child: button(
-                  title: 'Login',ontap: () {
-                    if(_formkey.currentState!.validate()){
-                        _auth.signInWithEmailAndPassword(
-                          email: emailController.text, 
-                          password: passwordController.text).then((value) {
-                            Get.to(()=>PatientDashboard());
-                          }).onError((error, stackTrace){
-                            Utils().toastMessage(error.toString());
-                          });
-                    }
+                SizedBox(
+                  height: 64.h,
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: fireStore,
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    return Align(
+                        alignment: Alignment.center,
+                        child: button(
+                          title: 'Login',
+                          ontap: () {
+                            email = emailController.text;
+                            if (_formkey.currentState!.validate()) {
+                              _auth
+                                  .signInWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text)
+                                  .then((value) {
+                                for (int i = 0;
+                                    i < snapshot.data!.docs.length;
+                                    i++) {
+                                  if (email ==
+                                      snapshot.data!.docs[i]["email"]) {
+                                    exist = true;
+                                  }
+                                }
+                                exist
+                                    ? Get.to(() => PatientDashboard(email: email,))
+                                    : Utils().toastMessage("invalid email");
+                              }).onError((error, stackTrace) {
+                                Utils().toastMessage(error.toString());
+                              });
+                            }
+                          },
+                        ));
                   },
-                )),
-                SizedBox(height: 153.h,),
-                Row(mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                SizedBox(
+                  height: 153.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don't Have an Account?",
@@ -129,10 +160,12 @@ class PatientLogin extends StatelessWidget {
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(width: 3.w,),
+                    SizedBox(
+                      width: 3.w,
+                    ),
                     InkWell(
                       onTap: () {
-                        Get.to(()=>PatientSignup());
+                        Get.to(() => PatientSignup());
                       },
                       child: Text(
                         "Signup",

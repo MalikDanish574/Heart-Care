@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -17,10 +18,12 @@ import '../../widgets/Appbar.dart';
 import '../ForgetPassword/forgetPasword.dart';
 
 class DoctorLogin extends StatelessWidget {
+  bool exist=false;
+  String email="";
   final _formkey= GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  final fireStore = FirebaseFirestore.instance.collection('Doctor').snapshots();
   final _auth= FirebaseAuth.instance;
   void dispose(){
     emailController.dispose();
@@ -102,21 +105,35 @@ class DoctorLogin extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 64.h,),
-                Align(
+                StreamBuilder<QuerySnapshot>(
+                  stream: fireStore,
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  return  Align(
                   alignment: Alignment.center,
                     child: button(
                   title: 'Login',ontap: () {
+                    email=emailController.text;
                     if(_formkey.currentState!.validate()){
                         _auth.signInWithEmailAndPassword(
                           email: emailController.text, 
                           password: passwordController.text).then((value) {
-                            Get.to(()=>DoctorDashboard());
+                            for(int i=0; i<snapshot.data!.docs.length;i++){
+                            
+                               if(email ==
+                                      snapshot.data!.docs[i]["email"]) {
+                                      exist=true;
+                                  }
+                                  
+                                }
+                                exist?Get.to(()=>DoctorDashboard()):Utils().toastMessage("invalid email");
                           }).onError((error, stackTrace){
                             Utils().toastMessage(error.toString());
                           });
                     }
                   },
-                )),
+                ));
+                }),
+               
                 SizedBox(height: 153.h,),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
