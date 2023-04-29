@@ -12,11 +12,13 @@ import 'package:patient_health_monitoring_app/utils/utilities.dart';
 import 'package:patient_health_monitoring_app/widgets/button.dart';
 import 'package:patient_health_monitoring_app/widgets/emailfield.dart';
 import 'package:patient_health_monitoring_app/widgets/password.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/Appbar.dart';
 import '../ForgetPassword/forgetPasword.dart';
 
-class PatientLogin extends StatelessWidget {
+class PatientLogin extends StatelessWidget  {
+  
   bool exist = false;
   String email = "";
   final _formkey = GlobalKey<FormState>();
@@ -126,17 +128,28 @@ class PatientLogin extends StatelessWidget {
                                   .signInWithEmailAndPassword(
                                       email: emailController.text,
                                       password: passwordController.text)
-                                  .then((value) {
+                                  .then((value) async {
+                                    if(!snapshot.hasData){
+                                      CircularProgressIndicator();
+                                    }
                                 for (int i = 0;
                                     i < snapshot.data!.docs.length;
                                     i++) {
                                   if (email ==
                                       snapshot.data!.docs[i]["email"]) {
                                     exist = true;
+                                    final SharedPreferences _sharedPreferences=await SharedPreferences.getInstance();
+                                    _sharedPreferences.setString("patientname","${snapshot.data!.docs[i]["name"]}");
+                                    _sharedPreferences.setString("email","${snapshot.data!.docs[i]["email"]}");
+                                    _sharedPreferences.setString("age","${snapshot.data!.docs[i]["age"].toString()}");
+                                    _sharedPreferences.setString("gender","${snapshot.data!.docs[i]["gender"].toString()}");
+                                  
+                                  print(_sharedPreferences.getString("name"));
+                                  
                                   }
                                 }
                                 exist
-                                    ? Get.to(() => PatientDashboard(email: email,))
+                                    ? Get.to(() => PatientDashboard())
                                     : Utils().toastMessage("invalid email");
                               }).onError((error, stackTrace) {
                                 Utils().toastMessage(error.toString());

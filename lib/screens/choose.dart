@@ -28,19 +28,10 @@ class Choose extends StatelessWidget {
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:  EdgeInsets.only(left: 50.w,top: 50.h),
-                        child: Image.asset(logo,height: 120,width: 80,),
+                        padding:  EdgeInsets.only(left: 30.w,top: 50.h),
+                        child: Image.asset(logo,height: 150,width: 150,),
                       ),
-                      Padding(
-                        padding:  EdgeInsets.only(left: 20.w),
-                        child: Text("IoT based Blood pressure\nmonitoring system",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: textWhite,
-                          fontSize: 15,
-                          fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w700)
-                        ),),
+                     
                         SizedBox(height: 170.h,),
                        Align(
                         alignment: Alignment.center,
@@ -69,7 +60,7 @@ class Choose extends StatelessWidget {
                         alignment: Alignment.center,
                         child: button(title: 'Patient',ontap: (){
                           if (FirebaseAuth.instance.currentUser!=null){
-                                Get.to(()=>PatientDashboard(email: FirebaseAuth.instance.currentUser!.email.toString(),));
+                                Get.to(()=>PatientDashboard());
                               }else{
                                 Get.to(()=>PatientLogin());
                               }

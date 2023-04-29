@@ -1,16 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:patient_health_monitoring_app/screens/PatientScreens/patientdashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../widgets/custom_app_bar.dart';
 
-class DoneAppointment extends StatelessWidget {
+class DoneAppointment extends StatefulWidget {
   final String date;
   final String time;
 
   DoneAppointment({required this.date, required this.time});
+
+  @override
+  State<DoneAppointment> createState() => _DoneAppointmentState();
+}
+
+class _DoneAppointmentState extends State<DoneAppointment> {
+  String? doctorName = "";
+
+  String? hospital = "";
+
+  String? hospitalLocation = "";
+
+  String? phoneNo = "";
+
+  String? specialization = "";
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    // Add listeners to this class
+  }
+
+  void getData() async {
+    final SharedPreferences _sharedPreferences =
+        await SharedPreferences.getInstance();
+    doctorName = _sharedPreferences.getString('doctorname');
+    specialization = _sharedPreferences.getString('doctorspecial');
+    hospital = _sharedPreferences.getString('Hospital');
+    hospitalLocation = _sharedPreferences.getString("Hospital Location");
+    phoneNo = _sharedPreferences.getString("Phone No");
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +132,7 @@ class DoneAppointment extends StatelessWidget {
                       height: 5.h,
                     ),
                     Text(
-                      date + " , " + time,
+                      widget.date + " , " + widget.time,
                       style: TextStyle(
                           color: textblack,
                           fontSize: 14,
@@ -138,7 +175,7 @@ class DoneAppointment extends StatelessWidget {
                       height: 5.h,
                     ),
                     Text(
-                      "Dr. Saif Malik",
+                      doctorName!,
                       style: TextStyle(
                           color: textblack,
                           fontSize: 14,
@@ -166,7 +203,7 @@ class DoneAppointment extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Appointment Fee",
+                      "Specialization",
                       style: TextStyle(
                           color: textgrey,
                           fontSize: 12,
@@ -178,7 +215,7 @@ class DoneAppointment extends StatelessWidget {
                       height: 5.h,
                     ),
                     Text(
-                      "PKR 1500",
+                      specialization!,
                       style: TextStyle(
                           color: textblack,
                           fontSize: 14,
@@ -190,7 +227,7 @@ class DoneAppointment extends StatelessWidget {
                 )
               ],
             ),
-             SizedBox(
+            SizedBox(
               height: 46.h,
             ),
             Text(
@@ -218,7 +255,7 @@ class DoneAppointment extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "ABC se Skin & Laser Hospital",
+                      hospital!,
                       style: TextStyle(
                           color: textblack,
                           fontSize: 14,
@@ -230,7 +267,7 @@ class DoneAppointment extends StatelessWidget {
                       height: 5.h,
                     ),
                     Text(
-                      "I-8 Markaz, Islamabad",
+                      hospitalLocation!,
                       style: TextStyle(
                           color: textgrey,
                           fontSize: 12,
@@ -258,7 +295,7 @@ class DoneAppointment extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "+92313-5678912",
+                      phoneNo!,
                       style: TextStyle(
                           color: textblack,
                           fontSize: 14,
@@ -274,32 +311,30 @@ class DoneAppointment extends StatelessWidget {
               height: 100.h,
             ),
             GestureDetector(
-                      onTap: () {
-                        Get.to(()=>PatientDashboard());
-                      },
-                      child: Container(
-                        width: 377.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              style: BorderStyle.solid,
-                              color: btnborder),
-                          color: btnbg,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Done',
-                            style: TextStyle(
-                                color: textWhite,
-                                fontSize: 18,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                    )
+              onTap: () {
+                Get.to(() => PatientDashboard());
+              },
+              child: Container(
+                width: 377.w,
+                height: 50.h,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1, style: BorderStyle.solid, color: btnborder),
+                  color: btnbg,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    'Done',
+                    style: TextStyle(
+                        color: textWhite,
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:patient_health_monitoring_app/screens/PatientScreens/doneAppointment.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/widgets/custom_app_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../utils/utilities.dart';
 
 class BookAppointment extends StatefulWidget {
   @override
@@ -13,31 +17,97 @@ class BookAppointment extends StatefulWidget {
 }
 
 class _BookAppointmentState extends State<BookAppointment> {
-  String time = '';
-  List<tabb> _tab = [
-    tabb(
-      title: "3:15 PM",
-      select: false,
-    ),
-    tabb(
-      title: "3:45 PM",
-      select: false,
-    ),
-    tabb(
-      title: "4:15 PM",
-      select: false,
-    ),
-    tabb(
-      title: "4:45 PM",
-      select: false,
-    ),
-    tabb(
-      title: "5:15 PM",
-      select: false,
-    ),
-  ];
+  final fireStore = FirebaseFirestore.instance.collection('Appointments');
+  String time = "";
 
-  String _date = '';
+  dynamic name = "";
+
+  dynamic specialization = "";
+
+  dynamic gender = "";
+
+  TimeOfDay? starttime = TimeOfDay.now();
+  TimeOfDay? endtime = TimeOfDay.now();
+  String _date = DateFormat('yMMMMd').format(DateTime.now());
+
+  @override
+  void initState() {
+    super.initState();
+    tab();
+    getdata();
+    // Add listeners to this class
+  }
+
+  TimeOfDay toTimeOfDay(String? time) {
+    List<String> timeSplit = time!.split(":");
+    int hour = int.parse(timeSplit.first);
+    int minute = int.parse(timeSplit.last);
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  void getdata() async {
+    final SharedPreferences _sharedPreferences =
+        await SharedPreferences.getInstance();
+    name = _sharedPreferences.getString('doctorname');
+    specialization = _sharedPreferences.getString('doctorspecial');
+    gender = _sharedPreferences.getString('gender');
+    starttime = toTimeOfDay(_sharedPreferences.getString("starttime"));
+    endtime = toTimeOfDay(_sharedPreferences.getString("endtime"));
+
+    print(name);
+    print(specialization);
+    print(gender);
+
+    //  strttime=
+    // endTime=new DateFormat("hh:mm:ss").parse(endtime);
+
+    setState(() {});
+    print(starttime!.hour);
+    print(endtime);
+  }
+
+  int addhour = 0;
+  int addHour(int time, int value) {
+    addhour = time;
+    addhour = addhour + value;
+    return addhour;
+  }
+
+  List<tabb> _tab = [];
+  void tab() {
+    _tab = [
+      tabb(
+        title: addHour(starttime!.hour, 0).toString() +
+            ":" +
+            starttime!.minute.toString(),
+        select: false,
+      ),
+      tabb(
+        title: addHour(starttime!.hour, 1).toString() +
+            ":" +
+            starttime!.minute.toString(),
+        select: false,
+      ),
+      tabb(
+        title: addHour(starttime!.hour, 2).toString() +
+            ":" +
+            starttime!.minute.toString(),
+        select: false,
+      ),
+      tabb(
+        title: addHour(starttime!.hour, 3).toString() +
+            ":" +
+            starttime!.minute.toString(),
+        select: false,
+      ),
+      tabb(
+        title: addHour(starttime!.hour, 4).toString() +
+            ":" +
+            starttime!.minute.toString(),
+        select: false,
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +128,11 @@ class _BookAppointmentState extends State<BookAppointment> {
                 ),
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: textWhite,
-                      radius: 24,
-                      backgroundImage:
-                          AssetImage("assets/images/doctorProfile.png"),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "DR. Saif Malik",
+                          "DR." + name,
                           style: TextStyle(
                               color: textblack,
                               fontSize: 20,
@@ -82,7 +143,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                           height: 8.h,
                         ),
                         Text(
-                          "Cardiologist",
+                          specialization,
                           style: TextStyle(
                               color: textblack,
                               fontSize: 14,
@@ -92,14 +153,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Text(
-                          "Fee: PKR 2500",
-                          style: TextStyle(
-                              color: textblack,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'poppins'),
-                        )
                       ],
                     ),
                   ],
@@ -119,7 +172,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                   height: 10.h,
                 ),
                 HorizontalCalendar(
-                  date: DateTime.now().add(const Duration(days: 1)),
+                  date: DateTime.now().add(const Duration(days: 0)),
                   initialDate: DateTime.now(),
                   textColor: textgrey,
                   backgroundColor: Colors.white,
@@ -269,12 +322,43 @@ class _BookAppointmentState extends State<BookAppointment> {
                         ],
                       ),
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 15.h,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Get.to(()=>DoneAppointment(date: _date,time: time,));
+                      onTap: () async {
+                       
+                        final SharedPreferences _sharedPreferences =
+                            await SharedPreferences.getInstance();
+                        fireStore
+                            .doc()
+                            .set({
+                              'Patient Name':
+                                  _sharedPreferences.getString('patientname'),
+                              'Age': _sharedPreferences.getString('age'),
+                              'Gender': _sharedPreferences.getString('gender'),
+                              'Doctor Name': name,
+                              'Appointment Time': time,
+                              'Appointment Date': _date,
+                              'Hospital Name':
+                                  _sharedPreferences.getString('Hospital'),
+                              'Hospital Address': _sharedPreferences
+                                  .getString('Hospital Location'),
+                              'Doctor phone':
+                                  _sharedPreferences.getString('Phone No'),
+                              'Patient email':
+                                  _sharedPreferences.getString('email'),
+                              'Status': "Pending",
+                            })
+                            .then((value) {
+                                 Get.to(() => DoneAppointment(
+                              date: _date,
+                              time: time,
+                            ));
+                            })
+                            .onError((error, stackTrace) {
+                              Utils().toastMessage(error.toString());
+                            });
                       },
                       child: Container(
                         width: 377.w,
