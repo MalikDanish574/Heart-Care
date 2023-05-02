@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,22 +12,24 @@ import 'package:patient_health_monitoring_app/utils/utilities.dart';
 import 'package:patient_health_monitoring_app/widgets/button.dart';
 import 'package:patient_health_monitoring_app/widgets/emailfield.dart';
 import 'package:patient_health_monitoring_app/widgets/password.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/Appbar.dart';
 import '../ForgetPassword/forgetPasword.dart';
 
 class DoctorLogin extends StatelessWidget {
-  bool exist=false;
-  String email="";
-  final _formkey= GlobalKey<FormState>();
+  bool exist = false;
+  String email = "";
+  final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final fireStore = FirebaseFirestore.instance.collection('Doctor').snapshots();
-  final _auth= FirebaseAuth.instance;
-  void dispose(){
+  final _auth = FirebaseAuth.instance;
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,11 +77,15 @@ class DoctorLogin extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 23.w),
-                  child: Emailfeild(title: "EMAIL ADDRESS",controller: emailController,),
+                  child: Emailfeild(
+                    title: "EMAIL ADDRESS",
+                    controller: emailController,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 23.w, top: 20.h),
-                  child: Password(title: "Password",controller: passwordController),
+                  child: Password(
+                      title: "Password", controller: passwordController),
                 ),
                 SizedBox(
                   height: 14.h,
@@ -91,7 +96,7 @@ class DoctorLogin extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: (() {
-                        Get.to(()=>ForgetPassword());
+                        Get.to(() => ForgetPassword());
                       }),
                       child: Text(
                         "Forget Password?",
@@ -104,38 +109,59 @@ class DoctorLogin extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 64.h,),
+                SizedBox(
+                  height: 64.h,
+                ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: fireStore,
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  return  Align(
-                  alignment: Alignment.center,
-                    child: button(
-                  title: 'Login',ontap: () {
-                    email=emailController.text;
-                    if(_formkey.currentState!.validate()){
-                        _auth.signInWithEmailAndPassword(
-                          email: emailController.text, 
-                          password: passwordController.text).then((value) {
-                            for(int i=0; i<snapshot.data!.docs.length;i++){
-                            
-                               if(email ==
-                                      snapshot.data!.docs[i]["email"]) {
-                                      exist=true;
+                    stream: fireStore,
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      return Align(
+                          alignment: Alignment.center,
+                          child: button(
+                            title: 'Login',
+                            ontap: () {
+                              email = emailController.text;
+                              if (_formkey.currentState!.validate()) {
+                                _auth
+                                    .signInWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text)
+                                    .then((value) async {
+                                  for (int i = 0;
+                                      i < snapshot.data!.docs.length;
+                                      i++) {
+                                    if (email ==
+                                        snapshot.data!.docs[i]["email"]) {
+                                      final SharedPreferences
+                                          _sharedPreferences =
+                                          await SharedPreferences.getInstance();
+                                      _sharedPreferences.setString("Doctorname",
+                                          "${snapshot.data!.docs[i]["name"]}");
+                                      _sharedPreferences.setString("Email",
+                                          "${snapshot.data!.docs[i]["email"]}");
+                                      _sharedPreferences.setString("Gender",
+                                          "${snapshot.data!.docs[i]["Gender"].toString()}");
+                                      exist = true;
+
+                                      print(
+                                          _sharedPreferences.getString("Doctorname"));
+                                    }
                                   }
-                                  
-                                }
-                                exist?Get.to(()=>DoctorDashboard()):Utils().toastMessage("invalid email");
-                          }).onError((error, stackTrace){
-                            Utils().toastMessage(error.toString());
-                          });
-                    }
-                  },
-                ));
-                }),
-               
-                SizedBox(height: 153.h,),
-                Row(mainAxisAlignment: MainAxisAlignment.center,
+                                  exist
+                                      ? Get.to(() => DoctorDashboard())
+                                      : Utils().toastMessage("invalid email");
+                                }).onError((error, stackTrace) {
+                                  Utils().toastMessage(error.toString());
+                                });
+                              }
+                            },
+                          ));
+                    }),
+                SizedBox(
+                  height: 153.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don't Have an Account?",
@@ -145,10 +171,12 @@ class DoctorLogin extends StatelessWidget {
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(width: 3.w,),
+                    SizedBox(
+                      width: 3.w,
+                    ),
                     InkWell(
                       onTap: () {
-                         Get.to(()=>DoctorSignup());
+                        Get.to(() => DoctorSignup());
                       },
                       child: Text(
                         "Signup",

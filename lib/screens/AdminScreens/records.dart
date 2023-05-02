@@ -47,6 +47,7 @@ class ManageRecords extends StatelessWidget {
                   return textred; // Use the default value.
                 }),
                 columns: [
+                 
                   DataColumn(
                       label: Text('Blood\nPressure',
                           style: TextStyle(

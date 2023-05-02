@@ -77,12 +77,14 @@ class _ChooseState extends State<Choose> {
                         title: 'Doctor',
                         ontap: () {
                           for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                            if (snapshot.data!.docs[i]["email"] ==
-                                FirebaseAuth.instance.currentUser!.email) {
-                              isDoctor = true;
-                              isAdmin = false;
-                              isPatient = false;
-                              setState(() {});
+                            if (FirebaseAuth.instance.currentUser != null) {
+                              if (snapshot.data!.docs[i]["email"] ==
+                                  FirebaseAuth.instance.currentUser!.email) {
+                                isDoctor = true;
+                                isAdmin = false;
+                                isPatient = false;
+                                setState(() {});
+                              }
                             }
                           }
 
@@ -104,12 +106,14 @@ class _ChooseState extends State<Choose> {
                         title: 'Patient',
                         ontap: () {
                           for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                            if (snapshot.data!.docs[i]["email"] ==
-                                FirebaseAuth.instance.currentUser!.email) {
-                              isDoctor = false;
-                              isAdmin = false;
-                              isPatient = true;
-                              setState(() {});
+                            if (FirebaseAuth.instance.currentUser != null) {
+                              if (snapshot.data!.docs[i]["email"] ==
+                                  FirebaseAuth.instance.currentUser!.email) {
+                                isDoctor = false;
+                                isAdmin = false;
+                                isPatient = true;
+                                setState(() {});
+                              }
                             }
                           }
 
@@ -131,12 +135,14 @@ class _ChooseState extends State<Choose> {
                         title: 'Admin',
                         ontap: () {
                           for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                            if (snapshot.data!.docs[i]["email"] ==
-                                FirebaseAuth.instance.currentUser!.email) {
-                              isDoctor = false;
-                              isAdmin = true;
-                              isPatient = false;
-                              setState(() {});
+                            if (FirebaseAuth.instance.currentUser != null) {
+                              if (snapshot.data!.docs[i]["email"] ==
+                                  FirebaseAuth.instance.currentUser!.email) {
+                                isDoctor = false;
+                                isAdmin = true;
+                                isPatient = false;
+                                setState(() {});
+                              }
                             }
 
                             isAdmin
