@@ -47,6 +47,7 @@ dependencies:
   horizontal_calendar: ^1.0.2
   intl_phone_field: ^3.1.0
   shared_preferences: ^2.1.0
+  scalable_data_table: ^0.0.2
   
 dev_dependencies:
   flutter_test:

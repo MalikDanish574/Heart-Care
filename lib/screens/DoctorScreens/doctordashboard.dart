@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:patient_health_monitoring_app/screens/DoctorScreens/patientDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
@@ -82,7 +83,7 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
                 Get.to(() => CheckAppointment());
               },
               child: Container(
-                height: 200.h,
+                height: 150.h,
                 width: 378.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
@@ -108,6 +109,43 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
                     ),
                     SizedBox(
                       height: 22.h,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+             SizedBox(
+              height:20.h,
+            ),
+            InkWell(
+              onTap: () {
+                Get.to(() => PatientDetails ());
+              },
+              child: Container(
+                height: 150.h,
+                width: 378.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      "assets/images/appointmentbg.png",
+                      height: 150.h,
+                      width: 378.w,
+                      fit: BoxFit.fill,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.h, left: 20.w),
+                      child: Text(
+                        "Check\nPatient Details",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            color: textWhite,
+                            fontSize: 25.w,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ],
                 ),
