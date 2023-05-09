@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:scalable_data_table/scalable_data_table.dart';
 import '../../utils/colors.dart';
 
 class PatientDetails extends StatelessWidget {
+  final fireStore = FirebaseFirestore.instance.collection('PatientDetails').snapshots();
   final searchController = TextEditingController();
 
   @override
@@ -49,74 +51,85 @@ class PatientDetails extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            SizedBox(
-              height: 700.h,
-              child: ScalableDataTable(
-                header: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: textred,
-                  ),
-                  child: ScalableTableHeader(
-                    columnWrapper: columnWrapper,
-                    children: [
-                      const Text('Patient Name'),
-                      const Text('Age'),
-                      const Text('Gender'),
-                      const Text('Blood Pressure'),
-                      const Text('Pulse Rate'),
-                      const Text('Date'),
-                      const Text('Time'),
-                      const Text('Report'),
-                    ],
-                  ),
-                ),
-                rowBuilder: (context, index) {
-                  // final user = snapshot.data![index];
-                  return ScalableTableRow(
-                    columnWrapper: columnWrapper,
-                    color: MaterialStateColor.resolveWith((states) =>
-                        (index % 2 == 0)
-                            ? Colors.grey[200]!
-                            : Colors.transparent),
-                    children: [
-                      Text("Muhammad Danish Raza"),
-                      Text("23"),
-                      Text("MALE"),
-                      Text('87'),
-                      Text("45"),
-                      Text("23-4-2023"),
-                      Text("10:45"),
-                      InkWell(
-                        onTap: () {
-                          Get.to(()=>GenerateReport());
-                        },
-                        child: Container(
-                          height: 40.h,
-                          width: 150.w,
-                          decoration: BoxDecoration(
-                              color: containerbggreen,
-                              borderRadius: BorderRadius.circular(10.r)),
-                          child: Center(
-                            child: Text(
-                              "Generate Report",
-                              style: TextStyle(
-                                  color: textWhite,
-                                  fontSize: 18.w,
-                                  fontWeight: FontWeight.w600),
+            StreamBuilder<QuerySnapshot>(
+              stream: fireStore,
+              builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                 if(!snapshot.hasData){
+                   return Center(child: CircularProgressIndicator());
+                  }else
+                return SizedBox(
+                  height: 700.h,
+                  child: ScalableDataTable(
+                    header: DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                        color: textred,
+                      ),
+                      child: ScalableTableHeader(
+                        
+                        columnWrapper: columnWrapper,
+                        children: [
+                          const Text('Patient Name'),
+                          const Text('Age'),
+                          const Text('Gender'),
+                          const Text('Blood Pressure Upper'),
+                          const Text('Blood Pressure Lower'),
+                          const Text('Pulse Rate'),
+                          const Text('Date'),
+                          const Text('Time'),
+                          const Text('Report'),
+                        ],
+                      ),
+                    ),
+                    rowBuilder: (context, index) {
+                      // final user = snapshot.data![index];
+                      return ScalableTableRow(
+                        columnWrapper: columnWrapper,
+                        color: MaterialStateColor.resolveWith((states) =>
+                            (index % 2 == 0)
+                                ? Colors.grey[200]!
+                                : Colors.transparent),
+                        children: [
+                          Text(snapshot.data!.docs[index]["name"]),
+                          Text(snapshot.data!.docs[index]["age"].toString()),
+                          Text(snapshot.data!.docs[index]["gender"]),
+                          Text(snapshot.data!.docs[index]["bpUpper"].toString()),
+                          Text(snapshot.data!.docs[index]["bpLower"].toString()),
+                          Text(snapshot.data!.docs[index]["heartRate"].toString()),
+                          Text(snapshot.data!.docs[index]["date"]),
+                          Text(snapshot.data!.docs[index]["time"]),
+                          InkWell(
+                            onTap: () {
+                              Get.to(()=>GenerateReport());
+                            },
+                            child: Container(
+                              height: 40.h,
+                              width: 150.w,
+                              decoration: BoxDecoration(
+                                  color: containerbggreen,
+                                  borderRadius: BorderRadius.circular(10.r)),
+                              child: Center(
+                                child: Text(
+                                  "Generate Report",
+                                  style: TextStyle(
+                                      color: textWhite,
+                                      fontSize: 18.w,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                },
-                emptyBuilder: (context) => const Text('No users yet...'),
-                itemCount: 15,
-                minWidth: 1000, // max(MediaQuery.of(context).size.width, 1000),
-                textStyle: TextStyle(color: textgrey, fontSize: 18.sp),
-              ),
+                          )
+                        ],
+                      );
+                    },
+                    emptyBuilder: (context) => const Text('No users yet...'),
+                    itemCount: snapshot.data!.docs.length,
+                    minWidth: 1400.w, // max(MediaQuery.of(context).size.width, 1000),
+                    textStyle: TextStyle(color: textgrey, fontSize: 18.sp),
+                  ),
+                );
+              }
             )
           ],
         ),
