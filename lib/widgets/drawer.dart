@@ -49,7 +49,9 @@ class CustomDrawer extends StatelessWidget{
                   }),
                   _buildDivider(),
                   _buildRow(Icons.logout, "Sign Out",() async {
-                    FirebaseAuth.instance.signOut().then((value) => Get.to(Choose()));
+                    FirebaseAuth.instance.signOut().then((value) {
+                      Get.offAll(Choose());  
+                    });
                   }),
                   _buildDivider(),
 

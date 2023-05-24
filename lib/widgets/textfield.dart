@@ -5,9 +5,11 @@ import 'package:patient_health_monitoring_app/utils/colors.dart';
 class textfeild extends StatelessWidget{
    final TextEditingController controller;
    final String title;
+   final String error;
    textfeild({
     required this.title,
-    required this.controller
+    required this.controller,
+    required this.error
   });
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class textfeild extends StatelessWidget{
                   ),
                   validator: (value) {
                     if (value!.isEmpty){
-                      return "Enter Name";
+                      return error;
                     }
                     return null;
                   },

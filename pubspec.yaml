@@ -37,7 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.5
-  flutter_screenutil: ^5.6.0
+  flutter_screenutil: ^5.8.1 
   firebase_core: ^2.4.0
   firebase_storage: ^11.0.8
   firebase_auth: ^4.2.1
@@ -48,6 +48,9 @@ dependencies:
   intl_phone_field: ^3.1.0
   shared_preferences: ^2.1.0
   scalable_data_table: ^0.0.2
+  path_provider: ^2.0.15
+  permission_handler: ^10.2.0
+  open_filex: ^4.3.2
   
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:patient_health_monitoring_app/screens/DoctorScreens/check_bloodpressure.dart';
 import 'package:patient_health_monitoring_app/widgets/ractanaglebutton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/colors.dart';
@@ -225,12 +227,27 @@ class _CheckAppointmentState extends State<CheckAppointment> {
                                             MainAxisAlignment.center,
                                         children: [
                                           RectangleBtn(
-                                              title: "Done", ontap: () {
-                                                 acceptedAppointment
-                                                  .doc(snapshot
-                                                      .data!.docs[index].id
-                                                      .toString())
-                                                  .delete();
+                                              title: "Check Blood Pressure",
+                                              ontap: () {
+                                                Get.to(() => CheckBloodPressure(
+                                                      Name: snapshot
+                                                              .data!.docs[index]
+                                                          ["Patient Name"],
+                                                      Age: snapshot.data!
+                                                          .docs[index]["Age"],
+                                                      Gender: snapshot
+                                                              .data!.docs[index]
+                                                          ["Gender"],
+                                                    ));
+                                              }),
+                                          RectangleBtn(
+                                              title: "Done",
+                                              ontap: () {
+                                                acceptedAppointment
+                                                    .doc(snapshot
+                                                        .data!.docs[index].id
+                                                        .toString())
+                                                    .delete();
                                               })
                                         ],
                                       )

@@ -47,7 +47,7 @@ class PatientDetails extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            SearchBar(title: "Search Patient", controller: searchController),
+            CustomSearchBar(title: "Search Patient", controller: searchController),
             SizedBox(
               height: 20.h,
             ),

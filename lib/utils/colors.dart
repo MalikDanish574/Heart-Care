@@ -5,6 +5,7 @@ Color textWhite = Color(0xffFFFFFF);
 Color iconWhite = Color(0xffFFFFFF);
 Color containerbg = Color(0xffFFFFFF);
 Color containerbggreen = Colors.green;
+Color orange = Colors.orange;
 //  Color bgcolor=Color(0xffEB1315);
 Color textfieldborder = Color(0xffEB1315);
 Color btnborder = Color(0xffFFFFFF);

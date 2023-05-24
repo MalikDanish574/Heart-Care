@@ -116,7 +116,7 @@ void initState() {
                     SizedBox(
                       height: 5.h,
                     ),
-                    SearchBar(
+                    CustomSearchBar(
                         title: "Search Doctor", controller: searchController)
                   ],
                 ),

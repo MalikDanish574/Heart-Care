@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 
-class SearchBar extends StatelessWidget{
+class CustomSearchBar extends StatelessWidget{
    final TextEditingController controller;
    final String title;
-   SearchBar({
+   CustomSearchBar({
     required this.title,
     required this.controller
   });

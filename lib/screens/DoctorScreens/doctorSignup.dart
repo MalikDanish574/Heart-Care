@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:patient_health_monitoring_app/screens/DoctorScreens/doctorlogin.dart';
-import 'package:patient_health_monitoring_app/screens/PatientScreens/patientlogin.dart';
 import 'package:patient_health_monitoring_app/utils/colors.dart';
 import 'package:patient_health_monitoring_app/utils/images.dart';
 import 'package:patient_health_monitoring_app/utils/utilities.dart';
@@ -14,6 +13,7 @@ import 'package:patient_health_monitoring_app/widgets/emailfield.dart';
 import 'package:patient_health_monitoring_app/widgets/password.dart';
 import 'package:patient_health_monitoring_app/widgets/textfield.dart';
 
+import '../../widgets/Appbar.dart';
 import '../../widgets/numberField.dart';
 
 class DoctorSignup extends StatefulWidget {
@@ -63,7 +63,11 @@ class _SignupState extends State<DoctorSignup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 85.h,
+                        height: 15.h,
+                      ),
+                      Appbar(),
+                      SizedBox(
+                        height: 55.h,
                       ),
                       Text(
                         "Doctor Sign Up",
@@ -85,9 +89,12 @@ class _SignupState extends State<DoctorSignup> {
                             fontWeight: FontWeight.w500),
                       ),
                       SizedBox(
-                        height: 130,
+                        height: 120,
                       ),
-                      textfeild(title: "Name", controller: nameController),
+                      textfeild(
+                          title: "Name",
+                          controller: nameController,
+                          error: "Enter Name"),
                       SizedBox(
                         height: 10.h,
                       ),
@@ -102,19 +109,22 @@ class _SignupState extends State<DoctorSignup> {
                       ),
                       textfeild(
                           title: "Spaecialization",
-                          controller: specializationController),
+                          controller: specializationController,
+                          error: "Enter Specialization"),
                       SizedBox(
                         height: 10.h,
                       ),
                       textfeild(
                           title: "Hospital Name",
-                          controller: hospitalNameController),
+                          controller: hospitalNameController,
+                          error: "Enter Hospital Name"),
                       SizedBox(
                         height: 10.h,
                       ),
                       textfeild(
                           title: "Hospital Location",
-                          controller: hospitalLocationController),
+                          controller: hospitalLocationController,
+                          error: "Enter Location"),
                       SizedBox(
                         height: 10.h,
                       ),

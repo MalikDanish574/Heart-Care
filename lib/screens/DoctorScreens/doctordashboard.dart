@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:patient_health_monitoring_app/screens/DoctorScreens/check_bloodpressure.dart';
 import 'package:patient_health_monitoring_app/screens/DoctorScreens/patientDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,7 +62,7 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
                   "Hi "+doctorName!+",",
                   style: TextStyle(
                       color: textblack,
-                      fontSize: 32,
+                      fontSize: 32.sp,
                       fontWeight: FontWeight.w400),
                 ),
               ],
@@ -73,11 +74,12 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
               currdate + "\n" + currday,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: textgrey, fontSize: 18, fontWeight: FontWeight.w400),
+                  color: textgrey, fontSize: 18.sp, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
+             SizedBox(
               height: 20.h,
             ),
+            
             InkWell(
               onTap: () {
                 Get.to(() => CheckAppointment());

@@ -59,7 +59,7 @@ class _ContactUsState extends State<ContactUs> {
               SizedBox(
                 height: 70.h,
               ),
-              textfeild(title: "Name", controller: nameController),
+              textfeild(title: "Name", controller: nameController,error: "Enter Name"),
               SizedBox(
                 height: 20.h,
               ),

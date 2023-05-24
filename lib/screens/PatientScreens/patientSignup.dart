@@ -12,6 +12,7 @@ import 'package:patient_health_monitoring_app/widgets/emailfield.dart';
 import 'package:patient_health_monitoring_app/widgets/password.dart';
 import 'package:patient_health_monitoring_app/widgets/textfield.dart';
 
+import '../../widgets/Appbar.dart';
 import '../../widgets/numberField.dart';
 
 class PatientSignup extends StatefulWidget {
@@ -33,7 +34,6 @@ class _SignupState extends State<PatientSignup> {
   var items = ['Gender', 'Male', 'Female', 'Other'];
 
   final fireStore = FirebaseFirestore.instance.collection('Patient');
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,11 @@ class _SignupState extends State<PatientSignup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 85.h,
+                          height: 15.h,
+                        ),
+                        Appbar(),
+                        SizedBox(
+                          height: 55.h,
                         ),
                         Text(
                           "Patient Sign Up",
@@ -82,12 +86,16 @@ class _SignupState extends State<PatientSignup> {
                         SizedBox(
                           height: 130,
                         ),
-                        textfeild(title: "Name", controller: nameController),
+                        textfeild(
+                            title: "Name",
+                            controller: nameController,
+                            error: "Enter Name"),
                         SizedBox(
                           height: 10.h,
                         ),
                         Emailfeild(
-                            title: "EMAIL ADDRESS", controller: emailController),
+                            title: "EMAIL ADDRESS",
+                            controller: emailController),
                         SizedBox(
                           height: 10.h,
                         ),
@@ -146,10 +154,12 @@ class _SignupState extends State<PatientSignup> {
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide(color: textfieldborder)),
+                                  borderSide:
+                                      BorderSide(color: textfieldborder)),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide(color: textfieldborder)),
+                                  borderSide:
+                                      BorderSide(color: textfieldborder)),
                               labelText: 'Confirm Password',
                               labelStyle: TextStyle(
                                 fontSize: 11,
@@ -179,38 +189,41 @@ class _SignupState extends State<PatientSignup> {
                         Align(
                             alignment: Alignment.center,
                             child: button(
-                              title: 'SignUp',
-                              ontap: () {
-                                if (_formkey.currentState!.validate()) {
-                                  _auth
-                                      .createUserWithEmailAndPassword(
-                                          email: emailController.text.toString(),
-                                          password:
-                                              passwordController.text.toString())
-                                      .then((value) {
-                                    Utils()
-                                        .toastMessage("Successfully Registered");
-                                    Get.to(() => PatientLogin());
-                                  }).onError((error, stackTrace) {
-                                    Utils().toastMessage(error.toString());
-                                  });
-                                  fireStore.doc().set({
-                                    'name':nameController.text.toString(),
-                                    'email':emailController.text.toString(),
-                                    'age':ageController.text.toString(),
-                                    'gender':dropdownvalue,
-                                    'password':passwordController.text.toString(),
-                                }).then((value){
-      
-                                }).onError((error, stackTrace){
-                                  Utils().toastMessage(error.toString());
-                                });
-      
-                                }
-                                
-      
-                              } 
-                            )),
+                                title: 'SignUp',
+                                ontap: () {
+                                  if (_formkey.currentState!.validate()) {
+                                    _auth
+                                        .createUserWithEmailAndPassword(
+                                            email:
+                                                emailController.text.toString(),
+                                            password: passwordController.text
+                                                .toString())
+                                        .then((value) {
+                                      Utils().toastMessage(
+                                          "Successfully Registered");
+                                      Get.to(() => PatientLogin());
+                                    }).onError((error, stackTrace) {
+                                      Utils().toastMessage(error.toString());
+                                    });
+                                    fireStore
+                                        .doc()
+                                        .set({
+                                          'name':
+                                              nameController.text.toString(),
+                                          'email':
+                                              emailController.text.toString(),
+                                          'age': ageController.text.toString(),
+                                          'gender': dropdownvalue,
+                                          'password': passwordController.text
+                                              .toString(),
+                                        })
+                                        .then((value) {})
+                                        .onError((error, stackTrace) {
+                                          Utils()
+                                              .toastMessage(error.toString());
+                                        });
+                                  }
+                                })),
                         SizedBox(
                           height: 40.h,
                         ),
